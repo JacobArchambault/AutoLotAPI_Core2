@@ -21,5 +21,16 @@ namespace AutoLotMVC_Core2.Controllers
         {
             return View();
         }
+        private async Task<Inventory> GetInventoryRecord(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync($"{_baseUrl}/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var inventory = JsonConvert.DeserializeObject<Inventory>(await response.Content.ReadAsStringAsync());
+                return inventory;
+            }
+            return null;
+        }
     }
 }
