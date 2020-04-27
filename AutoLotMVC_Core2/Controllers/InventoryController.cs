@@ -91,5 +91,24 @@ namespace AutoLotMVC_Core2.Controllers
             }
             return View(inventory);
         }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var inventory = await GetInventoryRecord(id.Value);
+            return inventory != null ? (IActionResult)View(inventory) : NotFound();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete([Bind("Id,Timestamp")] Inventory inventory)
+        {
+            var client = new HttpClient();
+            var timeStampString = JsonConvert.SerializeObject(inventory.Timestamp);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, $"{_baseUrl}/{inventory.Id}/{timeStampString}");
+            await client.SendAsync(request);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
