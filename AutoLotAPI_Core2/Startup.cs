@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AutoLotAPI_Core2.Filters;
 
 namespace AutoLotAPI_Core2
 {
@@ -30,6 +31,10 @@ namespace AutoLotAPI_Core2
                 options => options.UseSqlServer(Configuration.GetConnectionString("AutoLot"),
                 o => o.EnableRetryOnFailure()));
             services.AddScoped<IInventoryRepo, InventoryRepo>();
+            services.AddMvc(config =>
+            {
+                config.Filters.Add(new AutoLotExceptionFilter(_env));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
