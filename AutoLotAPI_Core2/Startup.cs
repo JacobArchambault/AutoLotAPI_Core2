@@ -26,6 +26,10 @@ namespace AutoLotAPI_Core2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContextPool<AutoLotContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("AutoLot"),
+                o => o.EnableRetryOnFailure()));
+            services.AddScoped<IInventoryRepo, InventoryRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
