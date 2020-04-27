@@ -17,63 +17,52 @@ namespace AutoLotAPI_Core2.Controllers
     [ApiController]
     public class InventoryController : ControllerBase
     {
-        private readonly AutoLotContext _context;
+        private readonly IInventoryRepo _repo;
+        private readonly IMapper _mapper;
 
-        public InventoryController(AutoLotContext context)
+        public InventoryController(IInventoryRepo repo, IMapper mapper)
         {
-            _context = context;
+            _repo = repo;
+            _mapper = mapper;
         }
 
         // GET: api/Inventory
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Inventory>>> GetCars()
+        public IEnumerable<Inventory> GetCars()
         {
-            return await _context.Cars.ToListAsync();
+            List<Inventory> inventory = _repo.GetAll();
+            return _mapper.Map<List<Inventory>, List<Inventory>>(inventory);
         }
 
         // GET: api/Inventory/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Inventory>> GetInventory(int id)
+        public ActionResult<Inventory> GetInventory(int id)
         {
-            var inventory = await _context.Cars.FindAsync(id);
+            var inventory = _repo.GetOne(id);
 
             if (inventory == null)
             {
                 return NotFound();
             }
 
-            return inventory;
+            return Ok(_mapper.Map<Inventory, Inventory>(inventory));
         }
 
         // PUT: api/Inventory/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInventory(int id, Inventory inventory)
+        public IActionResult PutInventory([FromRoute] int id, [FromBody] Inventory inventory)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (id != inventory.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(inventory).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InventoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _repo.Update(inventory);
             return NoContent();
         }
 
@@ -81,33 +70,28 @@ namespace AutoLotAPI_Core2.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Inventory>> PostInventory(Inventory inventory)
+        public ActionResult<Inventory> PostInventory(Inventory inventory)
         {
-            _context.Cars.Add(inventory);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _repo.Add(inventory);
 
             return CreatedAtAction("GetInventory", new { id = inventory.Id }, inventory);
         }
 
         // DELETE: api/Inventory/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Inventory>> DeleteInventory(int id)
+        [HttpDelete("{id}/{timestamp}")]
+        public ActionResult<Inventory> DeleteInventory([FromRoute] int id, [FromRoute] string timestamp)
         {
-            var inventory = await _context.Cars.FindAsync(id);
-            if (inventory == null)
+            if (!timestamp.StartsWith("\""))
             {
-                return NotFound();
+                timestamp = $"\"{timestamp}\"";
             }
-
-            _context.Cars.Remove(inventory);
-            await _context.SaveChangesAsync();
-
-            return inventory;
-        }
-
-        private bool InventoryExists(int id)
-        {
-            return _context.Cars.Any(e => e.Id == id);
+            var ts = JsonConvert.DeserializeObject<byte[]>(timestamp);
+            _repo.Delete(id, ts);
+            return Ok();
         }
     }
 }
