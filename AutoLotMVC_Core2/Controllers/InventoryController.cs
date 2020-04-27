@@ -17,9 +17,16 @@ namespace AutoLotMVC_Core2.Controllers
         {
             _baseUrl = configuration.GetSection("ServiceAddress").Value;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var client = new HttpClient();
+            var response = await client.GetAsync(_baseUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var items = JsonConvert.DeserializeObject<List<Inventory>>(await response.Content.ReadAsStringAsync());
+                return View(items);
+            }
+            return NotFound();
         }
         private async Task<Inventory> GetInventoryRecord(int id)
         {
