@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoLotDAL_Core2.EF;
-using AutoLotDAL_Core2.Models;
 
+using AutoLotDAL_Core2.Models;
+using AutoLotDAL_Core2.Repos;
+using AutoMapper;
+using Newtonsoft.Json;
 namespace AutoLotAPI_Core2.Controllers
 {
     [Route("api/[controller]")]
