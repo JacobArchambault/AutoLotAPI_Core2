@@ -32,5 +32,14 @@ namespace AutoLotMVC_Core2.Controllers
             }
             return null;
         }
+        public async Task<IActionResult> Details (int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var inventory = await GetInventoryRecord(id.Value);
+            return inventory != null ? (IActionResult)View(inventory) : NotFound();
+        }
     }
 }
