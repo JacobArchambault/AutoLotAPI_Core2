@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLotDAL_Core2", "AutoLot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLotDAL_Core2.Models", "AutoLotDAL_Core2.Models\AutoLotDAL_Core2.Models.csproj", "{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLotMVC_Core2", "AutoLotMVC_Core2\AutoLotMVC_Core2.csproj", "{37283B44-6288-482B-BF3E-BB58783005D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37283B44-6288-482B-BF3E-BB58783005D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37283B44-6288-482B-BF3E-BB58783005D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37283B44-6288-482B-BF3E-BB58783005D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37283B44-6288-482B-BF3E-BB58783005D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
