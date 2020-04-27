@@ -41,5 +41,30 @@ namespace AutoLotMVC_Core2.Controllers
             var inventory = await GetInventoryRecord(id.Value);
             return inventory != null ? (IActionResult)View(inventory) : NotFound();
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Make,Color,PetName")] Inventory inventory)
+        {
+            if (!ModelState.IsValid) return View(inventory);
+            try
+            {
+                var client = new HttpClient();
+                string json = JsonConvert.SerializeObject(inventory);
+                var response = await client.PostAsync(_baseUrl, new StringContent(json, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Unable to create record: {ex.Message}");
+            }
+            return View(inventory);
+        }
     }
 }
