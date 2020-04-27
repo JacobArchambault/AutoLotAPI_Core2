@@ -1,5 +1,5 @@
 ﻿@model AutoLotDAL_Core2.Models.Inventory
-@{ 
+@{
     ViewData["Title"] = "Delete";
 }
 <h2>Delete</h2>
@@ -19,6 +19,8 @@
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Timestamp" />
         <input type="submit" value="Delete" class="btn" />
-        <a asp-action="Index">Back to List</a>
     </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
