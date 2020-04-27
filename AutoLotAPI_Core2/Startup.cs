@@ -1,14 +1,13 @@
+using AutoLotAPI_Core2.Filters;
 using AutoLotDAL_Core2.EF;
 using AutoLotDAL_Core2.Repos;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using AutoLotAPI_Core2.Filters;
 
 namespace AutoLotAPI_Core2
 {
@@ -35,6 +34,7 @@ namespace AutoLotAPI_Core2
             {
                 config.Filters.Add(new AutoLotExceptionFilter(_env));
             });
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
