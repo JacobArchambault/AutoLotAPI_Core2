@@ -4,5 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="AutoLotDAL_Core2.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoLotDAL_Core2.Models\AutoLotDAL_Core2.Models.csproj" />
+    <ProjectReference Include="..\AutoLotDAL_Core2\AutoLotDAL_Core2.csproj" />
+  </ItemGroup>
+
 
 </Project>

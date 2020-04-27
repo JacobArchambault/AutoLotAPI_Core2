@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLotAPI_Core2", "AutoLotAPI_Core2\AutoLotAPI_Core2.csproj", "{95A84ED7-EC18-47D4-BA52-90FEBE5079C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLotAPI_Core2", "AutoLotAPI_Core2\AutoLotAPI_Core2.csproj", "{95A84ED7-EC18-47D4-BA52-90FEBE5079C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLotDAL_Core2", "AutoLotDAL_Core2\AutoLotDAL_Core2.csproj", "{63E5978C-6988-45E2-8057-1D3B3A42A6F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLotDAL_Core2.Models", "AutoLotDAL_Core2.Models\AutoLotDAL_Core2.Models.csproj", "{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{95A84ED7-EC18-47D4-BA52-90FEBE5079C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95A84ED7-EC18-47D4-BA52-90FEBE5079C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95A84ED7-EC18-47D4-BA52-90FEBE5079C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63E5978C-6988-45E2-8057-1D3B3A42A6F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63E5978C-6988-45E2-8057-1D3B3A42A6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63E5978C-6988-45E2-8057-1D3B3A42A6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63E5978C-6988-45E2-8057-1D3B3A42A6F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EEAE984-A000-44C0-AC3C-9508DA7FAD6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
