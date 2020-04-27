@@ -66,5 +66,30 @@ namespace AutoLotMVC_Core2.Controllers
             }
             return View(inventory);
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var inventory = await GetInventoryRecord(id.Value);
+            return inventory != null ? (IActionResult)View(inventory) : NotFound();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Make, Color, PetName,Id, Timestamp")] Inventory inventory)
+        {
+            if (id != inventory.Id) return BadRequest();
+            if (!ModelState.IsValid) return View(inventory);
+            var client = new HttpClient();
+            string json = JsonConvert.SerializeObject(inventory);
+            var response = await client.PutAsync($"{_baseUrl}/{inventory.Id}",
+                new StringContent(json, Encoding.UTF8, "application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(inventory);
+        }
     }
 }
